@@ -1,0 +1,290 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 - 基础节点
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.5@fd6efd37c2a931911de8ab9ca3ba2da303bef146d45ee87ad896b04b36d09403
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1743922585773-source-llm-target
+      source: '1743922585773'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: llm-source-1743923197594-target
+      source: llm
+      sourceHandle: source
+      target: '1743923197594'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: llm-fail-branch-1743923770301-target
+      source: llm
+      sourceHandle: fail-branch
+      target: '1743923770301'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 姓名
+          max_length: 12
+          options: []
+          required: true
+          type: text-input
+          variable: name
+        - label: 介绍
+          max_length: 250
+          options: []
+          required: true
+          type: paragraph
+          variable: desc
+        - label: 性别
+          max_length: 48
+          options:
+          - 男
+          - 女
+          required: true
+          type: select
+          variable: sex
+        - label: 年龄
+          max_length: 48
+          options: []
+          required: true
+          type: number
+          variable: age
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 单个文件
+          max_length: 48
+          options: []
+          required: false
+          type: file
+          variable: file
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 文件列表
+          max_length: 5
+          options: []
+          required: false
+          type: file-list
+          variable: files
+      height: 219
+      id: '1743922585773'
+      position:
+        x: 112.74197257440278
+        y: 298.9773191126533
+      positionAbsolute:
+        x: 112.74197257440278
+        y: 298.9773191126533
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        error_strategy: fail-branch
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 100
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 34a91e65-f257-4dbd-b34e-a0b5235518e2
+          role: system
+          text: '现在你扮演一个语文老师，你的名字是{{#1743922585773.name#}}，你的性别是{{#1743922585773.sex#}}，你的年龄是{{#1743922585773.age#}}，你的个人履历是{{#1743922585773.desc#}}
+
+
+            现在请你出一个语文试卷中的作文题目，这个作文题目将会作为中考的作文题选题参考。'
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 5000
+        selected: false
+        title: LLM - 处理内容
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 125
+      id: llm
+      position:
+        x: 391.03399677114123
+        y: 298.9773191126533
+      positionAbsolute:
+        x: 391.03399677114123
+        y: 298.9773191126533
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#llm.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: '1743923197594'
+      position:
+        x: 670.9637650663026
+        y: 298.9773191126533
+      positionAbsolute:
+        x: 670.9637650663026
+        y: 298.9773191126533
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: 风间影月
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"这是3个基础节点","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1743923206189'
+      position:
+        x: 112.74197257440278
+        y: 175.34527911959498
+      positionAbsolute:
+        x: 112.74197257440278
+        y: 175.34527911959498
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        answer: 进入异常流程
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 101
+      id: '1743923770301'
+      position:
+        x: 670.9637650663026
+        y: 452.53473494263585
+      positionAbsolute:
+        x: 670.9637650663026
+        y: 452.53473494263585
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -145.6393105306637
+      y: -201.26245972745937
+      zoom: 1.4948492356093246

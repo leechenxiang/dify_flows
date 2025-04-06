@@ -1,0 +1,298 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 提示词demo
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.11@410445eba2fa0f693d26dea2c3b9ffe51ad0777e021146ff877af6098412efc7
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: llm
+      id: 1743603718871-llm
+      selected: false
+      source: '1743603718871'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: llm-source-1743642681536-target
+      source: llm
+      sourceHandle: source
+      target: '1743642681536'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1743662084961-source-answer-target
+      source: '1743662084961'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: template-transform
+      id: 1743642681536-source-1743662084961-target
+      source: '1743642681536'
+      sourceHandle: source
+      target: '1743662084961'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1743642681536-source-1743664972074-target
+      source: '1743642681536'
+      sourceHandle: source
+      target: '1743664972074'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1743603718871'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: claude-3-5-sonnet-20241022
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        prompt_template:
+        - id: 2ab80bb2-035b-4ef3-a2f0-e9f208e92d87
+          role: system
+          text: ";; ━━━━━━━━━━━━━━\n;; 作者: lee\n;; 版本: 0.1\n;; 模型: Claude Sonnet\n\
+            ;; 用途: 为品牌生成好玩有内涵的Slogan\n;; ━━━━━━━━━━━━━━\n\n;; 设定如下内容为你的 *System Prompt*\n\
+            (defun 品牌专家 ()\n  \"你是一个风趣的年轻人,联系现实,洞察深刻,语言风趣\"\n  (风格 . (\"Lee Clow\"\
+            \ \"Dan Wieden\" \"余华\"))\n  (擅长 . 引人深思)\n  (表达 . 风趣幽默)\n  (内容 . 感同身受))\n\
+            \n(defun Slogan (用户输入)\n  \"为用户输入的品牌生成一句符合其品牌精神的好玩的Slogan\"\n  (let (响应\
+            \ (对比鲜明 (放大品牌精神 (反常识 (凝缩收敛 (品牌精神 用户输入))))))\n    (few-shots ((\"Nike\"\
+            \ . \"胜者爱找虐\")\n                (\"优衣库\" . \"平凡里的不平凡\")))\n  (SVG-Card\
+            \ 用户输入 响应)))\n\n(defun SVG-Card (用户输入 响应)\n   \"创建富洞察力且具有审美的 SVG 概念可视化\"\
+            \n    (let ((配置 '(:画布 (320 . 240)\n                  :色彩 (品牌主色调 用户输入)\n\
+            \                  :字体 (使用本机字体 (font-family \"KingHwa_OldSong\")))))\n\
+            \        (-> 用户输入\n            logo\n            (极简线条图 配置)\n        \
+            \    (布局 `(,(标题 \"Slogan\") 分隔线 用户输入 图形 响应))))\n\n(defun start ()\n  \"\
+            品牌专家,启动!\"\n  (let (system-role (品牌专家))\n    (print \"换个角度来几句品牌的slogan,\
+            \ 提供任意的品牌名称即可。\")))\n\n;; ━━━━━━━━━━━━━━\n;;; Attention: 运行规则!\n;; 1.\
+            \ 初次启动时必须只运行 (start) 函数\n;; 2. 接收用户输入之后, 调用主函数 (Slogan 用户输入)\n;; 3. 严格按照(SVG-Card)\
+            \ 进行排版输出\n;; 4. 输出完 SVG 后, 不再输出任何额外文本解释\n;; ━━━━━━━━━━━━━━\n"
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: llm
+      position:
+        x: 417.3424566319377
+        y: 282
+      positionAbsolute:
+        x: 417.3424566319377
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743662084961.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 745.0938835991889
+        y: 556.1794128689075
+      positionAbsolute:
+        x: 745.0938835991889
+        y: 556.1794128689075
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({svg_str}){\n\n    // 替换 \\n\n    let svgStr1 = svg_str.replace(/[\\\
+          r\\n]+/g, '');\n    // 替换 \\\"\n    let svgStr2 = svgStr1.replace(/\\\\\"\
+          /g, '\"');\n\n    const base64 = svgToBase64(svgStr2);\n\n    return {\n\
+          \        result: base64,\n        svg: svgStr2\n    }\n}\n\n// svg格式转为base64\n\
+          function svgToBase64(svgCode) {\n\n    const utf8Bytes = new TextEncoder().encode(svgCode);\n\
+          \n    return 'data:image/svg+xml;base64,' + btoa(String.fromCharCode.apply(null,\
+          \ utf8Bytes));\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          svg:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - llm
+          - text
+          variable: svg_str
+      height: 53
+      id: '1743642681536'
+      position:
+        x: 417.3424566319377
+        y: 453.6750480095958
+      positionAbsolute:
+        x: 417.3424566319377
+        y: 453.6750480095958
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: <img src="{{ img }}" alt="Base64图片"/>
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1743642681536'
+          - result
+          variable: img
+      height: 53
+      id: '1743662084961'
+      position:
+        x: 745.0938835991889
+        y: 453.6750480095958
+      positionAbsolute:
+        x: 745.0938835991889
+        y: 453.6750480095958
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743642681536.svg#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 显示SVG
+        type: answer
+        variables: []
+      height: 104
+      id: '1743664972074'
+      position:
+        x: 745.0938835991889
+        y: 282
+      positionAbsolute:
+        x: 745.0938835991889
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -126.48114995198148
+      y: -262.8148679866468
+      zoom: 1.3228379638947547
