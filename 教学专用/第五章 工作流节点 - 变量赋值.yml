@@ -1,0 +1,271 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 - 变量赋值
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 64228882-f00b-4627-bbb6-2b83f68ce3e5
+    name: new_age
+    selector:
+    - conversation
+    - new_age
+    value: 28
+    value_type: number
+  - description: ''
+    id: b9231846-b21b-48c1-99b1-e20bc56ff490
+    name: age
+    selector:
+    - conversation
+    - age
+    value: 18
+    value_type: number
+  - description: ''
+    id: 1a34f1ff-e2d5-4512-93c4-5e176b86f25e
+    name: user_name
+    selector:
+    - conversation
+    - user_name
+    value: 风间影月
+    value_type: string
+  environment_variables:
+  - description: ''
+    id: 87547fac-80b8-422a-b910-58500a88e736
+    name: password
+    selector:
+    - env
+    - password
+    value: '123456'
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: answer
+      id: 1743998031422-source-answer-target
+      selected: false
+      source: '1743998031422'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: assigner
+      id: 1743998031422-source-1743998055251-target
+      selected: false
+      source: '1743998031422'
+      sourceHandle: source
+      target: '1743998055251'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1743998055251-source-1743998287781-target
+      source: '1743998055251'
+      sourceHandle: source
+      target: '1743998287781'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: answer
+      id: 1743998031422-source-1743998624138-target
+      selected: false
+      source: '1743998031422'
+      sourceHandle: source
+      target: '1743998624138'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1743998031422'
+      position:
+        x: 80
+        y: 280
+      positionAbsolute:
+        x: 80
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '姓名：{{#conversation.user_name#}}
+
+          年龄：{{#conversation.age#}}
+
+          <br>'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 120
+      id: answer
+      position:
+        x: 627.156541243915
+        y: 97.76685760223424
+      positionAbsolute:
+        x: 627.156541243915
+        y: 97.76685760223424
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: lee
+          variable_selector:
+          - conversation
+          - user_name
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - conversation
+          - new_age
+          variable_selector:
+          - conversation
+          - age
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 115
+      id: '1743998055251'
+      position:
+        x: 627.156541243915
+        y: 286.17759616564706
+      positionAbsolute:
+        x: 627.156541243915
+        y: 286.17759616564706
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '==========
+
+          姓名：{{#conversation.user_name#}}
+
+          年龄：{{#conversation.age#}}
+
+          <br>'
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 123
+      id: '1743998287781'
+      position:
+        x: 948.5228071281108
+        y: 286.17759616564706
+      positionAbsolute:
+        x: 948.5228071281108
+        y: 286.17759616564706
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '==========
+
+          {{#env.password#}}
+
+          <br>'
+        desc: ''
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 104
+      id: '1743998624138'
+      position:
+        x: 627.156541243915
+        y: 470.04796133202854
+      positionAbsolute:
+        x: 627.156541243915
+        y: 470.04796133202854
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -53.01357749663953
+      y: 24.312132360801
+      zoom: 1.0178003163925837
