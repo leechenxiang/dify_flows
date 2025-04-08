@@ -1,0 +1,228 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 - 问题分类器
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.14@d333909fe8d75a335b44da4b878d5120779b8703f12c21cf4730135d6864afbb
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1744085713636-source-1744085743318-target
+      source: '1744085713636'
+      sourceHandle: source
+      target: '1744085743318'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1744085743318-1-answer-target
+      source: '1744085743318'
+      sourceHandle: '1'
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1744085743318-2-17440858145400-target
+      source: '1744085743318'
+      sourceHandle: '2'
+      target: '17440858145400'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1744085743318-1744085783842-17440858148760-target
+      source: '1744085743318'
+      sourceHandle: '1744085783842'
+      target: '17440858148760'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1744085713636'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744085743318.class_name#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 718.0056838989258
+        y: 271
+      positionAbsolute:
+        x: 718.0056838989258
+        y: 271
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: 售前问题
+        - id: '2'
+          name: 售后问题
+        - id: '1744085783842'
+          name: 其它
+        desc: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-max
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1744085713636'
+        - sys.query
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 209
+      id: '1744085743318'
+      position:
+        x: 393.0056838989258
+        y: 282
+      positionAbsolute:
+        x: 393.0056838989258
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744085743318.class_name#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 (1)
+        type: answer
+        variables: []
+      height: 104
+      id: '17440858145400'
+      position:
+        x: 710.0056838989258
+        y: 427.0056838989258
+      positionAbsolute:
+        x: 710.0056838989258
+        y: 427.0056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744085743318.class_name#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 (1)
+        type: answer
+        variables: []
+      height: 104
+      id: '17440858148760'
+      position:
+        x: 710.0056838989258
+        y: 591.0056838989258
+      positionAbsolute:
+        x: 710.0056838989258
+        y: 591.0056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 108.99431610107422
+      y: -67.50568389892578
+      zoom: 1
