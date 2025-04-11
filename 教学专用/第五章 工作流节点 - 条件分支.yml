@@ -1,0 +1,250 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 - 条件分支
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 67cf7cb8-180b-4480-9f78-f8c1a6aa0ed5
+    name: default_age
+    selector:
+    - conversation
+    - default_age
+    value: 18
+    value_type: number
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1744092056079-source-1744092096194-target
+      source: '1744092056079'
+      sourceHandle: source
+      target: '1744092096194'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1744092096194-true-answer-target
+      source: '1744092096194'
+      sourceHandle: 'true'
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1744092096194-9e6cbcf7-df55-48aa-9b3c-c8ec8865112b-1744092120358-target
+      source: '1744092096194'
+      sourceHandle: 9e6cbcf7-df55-48aa-9b3c-c8ec8865112b
+      target: '1744092120358'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1744092096194-false-17440926473090-target
+      source: '1744092096194'
+      sourceHandle: 'false'
+      target: '17440926473090'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: 性别
+          max_length: 48
+          options:
+          - 男
+          - 女
+          - 不详
+          required: true
+          type: select
+          variable: sex
+        - label: 年龄
+          max_length: 48
+          options: []
+          required: true
+          type: number
+          variable: age
+      height: 115
+      id: '1744092056079'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: <font color="green">男性</font>
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 101
+      id: answer
+      position:
+        x: 711.7912969332035
+        y: 231.74924033138797
+      positionAbsolute:
+        x: 711.7912969332035
+        y: 231.74924033138797
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 3d62a7ea-2c99-4102-a993-c02bda204f3a
+            value: 男
+            varType: string
+            variable_selector:
+            - '1744092056079'
+            - sex
+          id: 'true'
+          logical_operator: or
+        - case_id: 9e6cbcf7-df55-48aa-9b3c-c8ec8865112b
+          conditions:
+          - comparison_operator: is
+            id: c9923392-997e-4384-bb1b-18ffe9ec74a4
+            value: 女
+            varType: string
+            variable_selector:
+            - '1744092056079'
+            - sex
+          id: 9e6cbcf7-df55-48aa-9b3c-c8ec8865112b
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 173
+      id: '1744092096194'
+      position:
+        x: 368.3877795406255
+        y: 282
+      positionAbsolute:
+        x: 368.3877795406255
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: <font color="red">女性</font>
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 101
+      id: '1744092120358'
+      position:
+        x: 711.7912969332035
+        y: 361.5807416842698
+      positionAbsolute:
+        x: 711.7912969332035
+        y: 361.5807416842698
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: <font color="blue">不知道</font>
+        desc: ''
+        selected: false
+        title: 直接回复 2 (1)
+        type: answer
+        variables: []
+      height: 101
+      id: '17440926473090'
+      position:
+        x: 711.7912969332035
+        y: 486.383946387337
+      positionAbsolute:
+        x: 711.7912969332035
+        y: 486.383946387337
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 25.935616909124406
+      y: -211.43483401511332
+      zoom: 1.1959705069286841

@@ -1,0 +1,353 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 -  循环节点1
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: e376ca49-d979-4170-9b66-fcbb5fc2f207
+    name: num_str
+    selector:
+    - conversation
+    - num_str
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: loop
+        targetType: answer
+      id: 1744343852760-source-answer-target
+      source: '1744343852760'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1744343852760'
+        sourceType: loop-start
+        targetType: code
+      id: 1744343852760start-source-1744343929531-target
+      source: 1744343852760start
+      sourceHandle: source
+      target: '1744343929531'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1744343852760'
+        sourceType: code
+        targetType: assigner
+      id: 1744343929531-source-1744344080120-target
+      source: '1744343929531'
+      sourceHandle: source
+      target: '1744344080120'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1744343852760'
+        sourceType: assigner
+        targetType: answer
+      id: 1744344080120-source-1744344181945-target
+      source: '1744344080120'
+      sourceHandle: source
+      target: '1744344181945'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: assigner
+      id: 1744343802192-source-1744344279845-target
+      source: '1744343802192'
+      sourceHandle: source
+      target: '1744344279845'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: loop
+      id: 1744344279845-source-1744343852760-target
+      source: '1744344279845'
+      sourceHandle: source
+      target: '1744343852760'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1744343802192'
+      position:
+        x: 44.84719582354833
+        y: 282
+      positionAbsolute:
+        x: 44.84719582354833
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 【{{#conversation.num_str#}}】
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 1034.2881513005752
+        y: 282
+      positionAbsolute:
+        x: 1034.2881513005752
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        break_conditions:
+        - comparison_operator: contains
+          id: 8b6f9485d94f4d7dadf2637768dc1e17
+          value: '50'
+          varType: string
+          variable_selector:
+          - conversation
+          - num_str
+        desc: ''
+        height: 335
+        logical_operator: and
+        loop_count: 20
+        selected: false
+        start_node_id: 1744343852760start
+        title: 循环
+        type: loop
+        width: 658.4832943257809
+      height: 335
+      id: '1744343852760'
+      position:
+        x: 342.4900671788448
+        y: 282
+      positionAbsolute:
+        x: 342.4900671788448
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 658
+      zIndex: 1
+    - data:
+        desc: ''
+        isInLoop: true
+        selected: false
+        title: ''
+        type: loop-start
+      draggable: false
+      height: 48
+      id: 1744343852760start
+      parentId: '1744343852760'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 366.4900671788448
+        y: 350
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-loop-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "function main() {\n    var num = Math.floor(Math.random() * 100);\n\
+          \    return {\n        result: num.toString()\n    }\n}"
+        code_language: javascript
+        desc: ''
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1744343852760'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables: []
+      height: 53
+      id: '1744343929531'
+      parentId: '1744343852760'
+      position:
+        x: 95.67081363273758
+        y: 65
+      positionAbsolute:
+        x: 438.1608808115824
+        y: 347
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: false
+        isInLoop: true
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1744343929531'
+          - result
+          variable_selector:
+          - conversation
+          - num_str
+          write_mode: over-write
+        loop_id: '1744343852760'
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1744344080120'
+      parentId: '1744343852760'
+      position:
+        x: 94.48329432578089
+        y: 152.2888031916084
+      positionAbsolute:
+        x: 436.9733615046257
+        y: 434.2888031916084
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        answer: '{{#conversation.num_str#}}，'
+        desc: ''
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1744343852760'
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 104
+      id: '1744344181945'
+      parentId: '1744343852760'
+      position:
+        x: 398.4832943257809
+        y: 152.2888031916084
+      positionAbsolute:
+        x: 740.9733615046257
+        y: 434.2888031916084
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - num_str
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 2
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1744344279845'
+      position:
+        x: 44.84719582354833
+        y: 385.40708144050046
+      positionAbsolute:
+        x: 44.84719582354833
+        y: 385.40708144050046
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -30.853954917175543
+      y: -104.1335808215658
+      zoom: 1.0229440734611543

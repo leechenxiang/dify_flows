@@ -1,0 +1,482 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 -  代码执行
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 1894a679-a6d1-4254-967d-5bfb052148b7
+    name: deal_str
+    selector:
+    - conversation
+    - deal_str
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1744345134777-source-answer-target
+      source: '1744345134777'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1744345119586-source-1744345401440-target
+      source: '1744345119586'
+      sourceHandle: source
+      target: '1744345401440'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1744345401440-false-1744345461385-target
+      source: '1744345401440'
+      sourceHandle: 'false'
+      target: '1744345461385'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1744345401440-true-1744345592911-target
+      source: '1744345401440'
+      sourceHandle: 'true'
+      target: '1744345592911'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1744345401440-c7346ada-22bb-4bc4-bce0-625869ddba30-17443456146790-target
+      source: '1744345401440'
+      sourceHandle: c7346ada-22bb-4bc4-bce0-625869ddba30
+      target: '17443456146790'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1744345401440-9479b447-2c19-407e-93d9-c0fc2e5ba638-17443456317690-target
+      source: '1744345401440'
+      sourceHandle: 9479b447-2c19-407e-93d9-c0fc2e5ba638
+      target: '17443456317690'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1744345401440-2712c76c-1537-49ab-987d-215475bfa408-17443456320930-target
+      source: '1744345401440'
+      sourceHandle: 2712c76c-1537-49ab-987d-215475bfa408
+      target: '17443456320930'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 1744345592911-source-1744345134777-target
+      source: '1744345592911'
+      sourceHandle: source
+      target: '1744345134777'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 17443456146790-source-1744345134777-target
+      source: '17443456146790'
+      sourceHandle: source
+      target: '1744345134777'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 17443456317690-source-1744345134777-target
+      source: '17443456317690'
+      sourceHandle: source
+      target: '1744345134777'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 17443456320930-source-1744345134777-target
+      source: '17443456320930'
+      sourceHandle: source
+      target: '1744345134777'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: 数字1
+          max_length: 48
+          options: []
+          required: true
+          type: number
+          variable: num1
+        - label: 数字2
+          max_length: 48
+          options: []
+          required: true
+          type: number
+          variable: num2
+        - label: 运算符
+          max_length: 48
+          options:
+          - 加
+          - 减
+          - 乘
+          - 除
+          required: true
+          type: select
+          variable: deal
+      height: 141
+      id: '1744345119586'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744345134777.result#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 1421
+        y: 468
+      positionAbsolute:
+        x: 1421
+        y: 468
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({aa, bb, deal}) {\n    \n    number = 0;\n\n    if\
+          \ (deal == '+') {\n        number = aa + bb\n    } else if (deal == '-')\
+          \ {\n        number = aa - bb\n    } else if (deal == '*') {\n        number\
+          \ = aa * bb\n    } else if (deal == '/') {\n        number = aa / bb\n \
+          \   } \n\n    return {\n        \n        result: number\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: number
+        selected: true
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1744345119586'
+          - num1
+          variable: aa
+        - value_selector:
+          - '1744345119586'
+          - num2
+          variable: bb
+        - value_selector:
+          - conversation
+          - deal_str
+          variable: deal
+      height: 53
+      id: '1744345134777'
+      position:
+        x: 1104.0056838989258
+        y: 529.5056838989258
+      positionAbsolute:
+        x: 1104.0056838989258
+        y: 529.5056838989258
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: f39f42ec-801b-41ae-90d9-188549b7276b
+            value: 加
+            varType: string
+            variable_selector:
+            - '1744345119586'
+            - deal
+          id: 'true'
+          logical_operator: and
+        - case_id: c7346ada-22bb-4bc4-bce0-625869ddba30
+          conditions:
+          - comparison_operator: is
+            id: 7f275e95-d76e-441c-8a19-5296d6a6eee6
+            value: 减
+            varType: string
+            variable_selector:
+            - '1744345119586'
+            - deal
+          logical_operator: and
+        - case_id: 9479b447-2c19-407e-93d9-c0fc2e5ba638
+          conditions:
+          - comparison_operator: is
+            id: 97c0fb7b-6585-486b-940a-5f8f633f337e
+            value: 乘
+            varType: string
+            variable_selector:
+            - '1744345119586'
+            - deal
+          logical_operator: and
+        - case_id: 2712c76c-1537-49ab-987d-215475bfa408
+          conditions:
+          - comparison_operator: is
+            id: a5d0801e-bf7a-442c-9b40-c2822bb8e0b5
+            value: 除
+            varType: string
+            variable_selector:
+            - '1744345119586'
+            - deal
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 269
+      id: '1744345401440'
+      position:
+        x: 390.0056838989258
+        y: 437.5056838989258
+      positionAbsolute:
+        x: 390.0056838989258
+        y: 437.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 什么都不是。
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 101
+      id: '1744345461385'
+      position:
+        x: 766.0056838989258
+        y: 870.5056838989258
+      positionAbsolute:
+        x: 766.0056838989258
+        y: 870.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: +
+          variable_selector:
+          - conversation
+          - deal_str
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1744345592911'
+      position:
+        x: 757.0056838989258
+        y: 290.5056838989258
+      positionAbsolute:
+        x: 757.0056838989258
+        y: 290.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: '-'
+          variable_selector:
+          - conversation
+          - deal_str
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 (1)
+        type: assigner
+        version: '2'
+      height: 87
+      id: '17443456146790'
+      position:
+        x: 757.0056838989258
+        y: 410
+      positionAbsolute:
+        x: 757.0056838989258
+        y: 410
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: '*'
+          variable_selector:
+          - conversation
+          - deal_str
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 (2)
+        type: assigner
+        version: '2'
+      height: 87
+      id: '17443456317690'
+      position:
+        x: 766.0056838989258
+        y: 524.5056838989258
+      positionAbsolute:
+        x: 766.0056838989258
+        y: 524.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: /
+          variable_selector:
+          - conversation
+          - deal_str
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 (2)
+        type: assigner
+        version: '2'
+      height: 87
+      id: '17443456320930'
+      position:
+        x: 757.0056838989258
+        y: 673.5056838989258
+      positionAbsolute:
+        x: 757.0056838989258
+        y: 673.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -203
+      y: -199.5
+      zoom: 1

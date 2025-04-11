@@ -1,0 +1,249 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 -  迭代
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 592fbae1-a304-4c04-8781-329068811e31
+    name: default_list
+    selector:
+    - conversation
+    - default_list
+    value:
+    - 101
+    - 102
+    - 201
+    - 202
+    - 303
+    - 304
+    - 405
+    - 406
+    - 507
+    - 508
+    value_type: array[number]
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: iteration
+        targetType: answer
+      id: 1744096436240-source-1744096395485-target
+      selected: false
+      source: '1744096436240'
+      sourceHandle: source
+      target: '1744096395485'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: iteration
+      id: 1744095492808-source-1744096436240-target
+      source: '1744095492808'
+      sourceHandle: source
+      target: '1744096436240'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1744096436240'
+        sourceType: iteration-start
+        targetType: document-extractor
+      id: 1744096436240start-source-1744100404100-target
+      source: 1744096436240start
+      sourceHandle: source
+      target: '1744100404100'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 文件列表
+          max_length: 5
+          options: []
+          required: true
+          type: file-list
+          variable: files
+      height: 89
+      id: '1744095492808'
+      position:
+        x: 22.243314822765768
+        y: 287.87081612039935
+      positionAbsolute:
+        x: 22.243314822765768
+        y: 287.87081612039935
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744096436240.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: '1744096395485'
+      position:
+        x: 682.8684450122282
+        y: 287.87081612039935
+      positionAbsolute:
+        x: 682.8684450122282
+        y: 287.87081612039935
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 173
+        is_parallel: false
+        iterator_selector:
+        - '1744095492808'
+        - files
+        output_selector:
+        - '1744100404100'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: true
+        start_node_id: 1744096436240start
+        title: 迭代
+        type: iteration
+        width: 388
+      height: 173
+      id: '1744096436240'
+      position:
+        x: 278.9850090253455
+        y: 407.0341450606716
+      positionAbsolute:
+        x: 278.9850090253455
+        y: 407.0341450606716
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 388
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1744096436240start
+      parentId: '1744096436240'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 302.9850090253455
+        y: 475.0341450606716
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        is_array_file: false
+        iteration_id: '1744096436240'
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - '1744096436240'
+        - item
+      height: 91
+      id: '1744100404100'
+      parentId: '1744096436240'
+      position:
+        x: 112.32474443400969
+        y: 65
+      positionAbsolute:
+        x: 391.3097534593552
+        y: 472.0341450606716
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    viewport:
+      x: 13.536226738059781
+      y: -349.33344305845617
+      zoom: 1.5310755157364955
