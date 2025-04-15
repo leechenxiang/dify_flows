@@ -1,0 +1,193 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 -  列表操作
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: ca728ebb-00fa-4c67-b671-b5575f93b77b
+    name: str_list
+    selector:
+    - conversation
+    - str_list
+    value:
+    - 风间影月
+    - lee
+    - abc
+    - 风间苍月
+    value_type: array[string]
+  - description: ''
+    id: c4363148-af5d-4338-a386-8ba012853d1a
+    name: list
+    selector:
+    - conversation
+    - list
+    value:
+    - 100
+    - 20
+    - 30
+    - 16
+    - 88
+    - 19
+    - 99
+    - 65
+    - 43
+    - 71
+    value_type: array[number]
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: list-operator
+      id: 1744680348658-source-1744680364065-target
+      source: '1744680348658'
+      sourceHandle: source
+      target: '1744680364065'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: list-operator
+        targetType: answer
+      id: 1744680364065-source-answer-target
+      source: '1744680364065'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1744680348658'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744680364065.result#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        extract_by:
+          enabled: false
+          serial: '1'
+        filter_by:
+          conditions:
+          - comparison_operator: ≥
+            key: ''
+            value: '88'
+          enabled: false
+        item_var_type: number
+        limit:
+          enabled: true
+          size: 5
+        order_by:
+          enabled: true
+          key: ''
+          value: desc
+        selected: true
+        title: 列表操作
+        type: list-operator
+        var_type: array[number]
+        variable:
+        - conversation
+        - list
+      height: 93
+      id: '1744680364065'
+      position:
+        x: 380
+        y: 459.0056838989258
+      positionAbsolute:
+        x: 380
+        y: 459.0056838989258
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -0.5
+      y: -53.5
+      zoom: 1

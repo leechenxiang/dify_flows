@@ -1,0 +1,320 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 第五章 工作流节点 -  模板转换
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.5@fd6efd37c2a931911de8ab9ca3ba2da303bef146d45ee87ad896b04b36d09403
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: llm
+      id: 1744508753484-llm
+      source: '1744508753484'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1744509120243-source-answer-target
+      source: '1744509120243'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: llm-source-1744509180152-target
+      source: llm
+      sourceHandle: source
+      target: '1744509180152'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: template-transform
+      id: 1744509180152-source-1744509120243-target
+      source: '1744509180152'
+      sourceHandle: source
+      target: '1744509120243'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1744509180152-source-1744509308179-target
+      source: '1744509180152'
+      sourceHandle: source
+      target: '1744509308179'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1744508753484'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 49954193-6976-4fd0-a6d6-bb31e33cdcfc
+          role: system
+          text: '【需求】
+
+            请输出一个json，这个json的格式请参考示例，数据请随意填充。
+
+
+            【要求】
+
+            输出的JSON格式请不要使用代码或者转义字符串。
+
+            禁止输出 \"```\"
+
+            禁止使用 \"```\"
+
+            不要包含 ```json``` 的标签，只输出标准的json格式，不要输出其他任何内容。
+
+
+            【示例】
+
+            {
+
+            "name": "王大锤",
+
+            "age": 18,
+
+            "sex": "男",
+
+            "birthday": "1999-12-12"
+
+            }'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: llm
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744509120243.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 684
+        y: 530.7528419494629
+      positionAbsolute:
+        x: 684
+        y: 530.7528419494629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '<font color=''green''>姓名：{{ person.name }}</font>
+
+          <br>
+
+          <font color=''blue''>年龄：{{ person.age }}</font>
+
+          <br>
+
+          <font color=''orange''>性别：{{ person.sex }}</font>
+
+          <br>
+
+          <font color=''red''>生日：{{ person.birthday }}</font>
+
+          <br>'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1744509180152'
+          - result
+          variable: person
+      height: 53
+      id: '1744509120243'
+      position:
+        x: 380
+        y: 530.7528419494629
+      positionAbsolute:
+        x: 380
+        y: 530.7528419494629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({jsonStr}) {\n    return {\n        result: JSON.parse(jsonStr)\n\
+          \    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - llm
+          - text
+          variable: jsonStr
+      height: 53
+      id: '1744509180152'
+      position:
+        x: 380
+        y: 411.7528419494629
+      positionAbsolute:
+        x: 380
+        y: 411.7528419494629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744509180152.result#}}
+
+          ++++++++++
+
+          '
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 120
+      id: '1744509308179'
+      position:
+        x: 684
+        y: 388.7528419494629
+      positionAbsolute:
+        x: 684
+        y: 388.7528419494629
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -216.3704993909339
+      y: -360.80051128343734
+      zoom: 1.7499003050109458
