@@ -1,0 +1,260 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: HTTP请求节点
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1745298945762-source-1745298955258-target
+      source: '1745298945762'
+      sourceHandle: source
+      target: '1745298955258'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1745298955258-source-answer-target
+      source: '1745298955258'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1745298945762-source-1745299566433-target
+      source: '1745298945762'
+      sourceHandle: source
+      target: '1745299566433'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1745299566433-source-1745299579392-target
+      source: '1745299566433'
+      sourceHandle: source
+      target: '1745299579392'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1745298945762'
+      position:
+        x: 92
+        y: 275.0056838989258
+      positionAbsolute:
+        x: 92
+        y: 275.0056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '
+
+          响应信息：{{#1745298955258.body#}}
+
+          响应状态码：{{#1745298955258.status_code#}}
+
+          ++++++++++++++++++++++++++++'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 155
+      id: answer
+      position:
+        x: 685
+        y: 275.0056838989258
+      positionAbsolute:
+        x: 685
+        y: 275.0056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          connect: 3
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+          read: 3
+          write: 3
+        title: HTTP 请求 - GET
+        type: http-request
+        url: http://host.docker.internal:3000/abc?name=风间影月&age=18&sex=1
+        variables: []
+      height: 150
+      id: '1745298955258'
+      position:
+        x: 383.0056838989258
+        y: 275.0056838989258
+      positionAbsolute:
+        x: 383.0056838989258
+        y: 275.0056838989258
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-47
+            key: ''
+            type: text
+            value: "{\n    \"name\": \"风间影月\",\n    \"age\": 28,\n    \"sex\": \"\
+              0\"\n}"
+          type: json
+        desc: ''
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 POST
+        type: http-request
+        url: http://10.0.0.8:3000/showUser
+        variables: []
+      height: 134
+      id: '1745299566433'
+      position:
+        x: 383.0056838989258
+        y: 506.01136779785156
+      positionAbsolute:
+        x: 383.0056838989258
+        y: 506.01136779785156
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '
+
+          {{#1745299566433.body#}}
+
+          {{#1745299566433.status_code#}}
+
+          '
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 123
+      id: '1745299579392'
+      position:
+        x: 685
+        y: 506.01136779785156
+      positionAbsolute:
+        x: 685
+        y: 506.01136779785156
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -58.07324778303371
+      y: -180.4655874384011
+      zoom: 1.3295233195757918
