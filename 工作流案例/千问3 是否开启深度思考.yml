@@ -1,0 +1,320 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 千问3 是否开启深度思考
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.6@7d66a960a68cafdcdf5589fdf5d01a995533f956853c69c54eddcf797006fa37
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: ''
+    id: b7c6cd8f-4abc-45d1-9eae-cc51b5db3007
+    name: do_thinking
+    selector:
+    - conversation
+    - do_thinking
+    value: /no_think
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1745918397444-source-1745932063037-target
+      source: '1745918397444'
+      sourceHandle: source
+      target: '1745932063037'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1745932063037-true-1745932141710-target
+      source: '1745932063037'
+      sourceHandle: 'true'
+      target: '1745932141710'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1745932063037-false-17459323449340-target
+      source: '1745932063037'
+      sourceHandle: 'false'
+      target: '17459323449340'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 17459323449340-source-llm-target
+      source: '17459323449340'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1745932141710-source-llm-target
+      source: '1745932141710'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 开启深度思考
+          max_length: 5
+          options:
+          - 否
+          - 是
+          required: true
+          type: select
+          variable: thinking_able
+      height: 89
+      id: '1745918397444'
+      position:
+        x: -61.76095263448508
+        y: 294
+      positionAbsolute:
+        x: -61.76095263448508
+        y: 294
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3:32b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: e0659723-2387-4476-9fbd-e7ab92e9ff4c
+          role: system
+          text: ''
+        - id: 25bd31b0-6a5b-4852-9b07-7ab40d393c72
+          role: user
+          text: '  {{#conversation.do_thinking#}}'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: llm
+      position:
+        x: 532
+        y: 294
+      positionAbsolute:
+        x: 532
+        y: 294
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#llm.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 532
+        y: 423
+      positionAbsolute:
+        x: 532
+        y: 423
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 2b057e0d-7800-47bc-9dd9-38aebfcb302c
+            value: 是
+            varType: string
+            variable_selector:
+            - '1745918397444'
+            - thinking_able
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 125
+      id: '1745932063037'
+      position:
+        x: -61.76095263448508
+        y: 416.5056838989258
+      positionAbsolute:
+        x: -61.76095263448508
+        y: 416.5056838989258
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: '  /think'
+          variable_selector:
+          - conversation
+          - do_thinking
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1745932141710'
+      position:
+        x: 237.50568389892578
+        y: 294
+      positionAbsolute:
+        x: 237.50568389892578
+        y: 294
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: '  /no_think'
+          variable_selector:
+          - conversation
+          - do_thinking
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 (1)
+        type: assigner
+        version: '2'
+      height: 87
+      id: '17459323449340'
+      position:
+        x: 237.50568389892578
+        y: 435.5056838989258
+      positionAbsolute:
+        x: 237.50568389892578
+        y: 435.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 159.09716860677736
+      y: -140.2133128553283
+      zoom: 1.3079185666690671
