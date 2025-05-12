@@ -1,0 +1,403 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 2n计算
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.14@d333909fe8d75a335b44da4b878d5120779b8703f12c21cf4730135d6864afbb
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: llm
+      id: 1747047316961-llm
+      source: '1747047316961'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: llm-source-1747047551039-target
+      source: llm
+      sourceHandle: source
+      target: '1747047551039'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747047551039-false-1747047583113-target
+      source: '1747047551039'
+      sourceHandle: 'false'
+      target: '1747047583113'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1747047551039-true-1747047687448-target
+      source: '1747047551039'
+      sourceHandle: 'true'
+      target: '1747047687448'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1747047687448-source-1747048253038-target
+      source: '1747047687448'
+      sourceHandle: source
+      target: '1747048253038'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: template-transform
+      id: 1747048253038-source-1747048761428-target
+      source: '1747048253038'
+      sourceHandle: source
+      target: '1747048761428'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1747048761428-source-1747048868237-target
+      source: '1747048761428'
+      sourceHandle: source
+      target: '1747048868237'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1747047316961'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen-max
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 83ed7465-b793-4e92-bae7-735471ae2bdb
+          role: system
+          text: '【需求】
+
+            根据上下文进行判断，如果是整数数字，直接输出true，否则输出false
+
+
+            【上下文】
+
+            {{#context#}}'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: llm
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 开始执行流程：<br/>
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 101
+      id: answer
+      position:
+        x: 745
+        y: 282
+      positionAbsolute:
+        x: 745
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 57d45a93-4709-43dd-9412-466530ddf9a5
+            value: 'true'
+            varType: string
+            variable_selector:
+            - llm
+            - text
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 125
+      id: '1747047551039'
+      position:
+        x: 380
+        y: 430.5056838989258
+      positionAbsolute:
+        x: 380
+        y: 430.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 您输入的不对，请输入任意一个数字~
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 101
+      id: '1747047583113'
+      position:
+        x: 380
+        y: 610.5056838989258
+      positionAbsolute:
+        x: 380
+        y: 610.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({str}) {\n\n    var number = parseInt(str);\n    var\
+          \ list = [];\n    for (var i = 0 ; i < number ; i ++) {\n        var temp\
+          \ = (i+1) * 2;\n        list.push(temp);\n    }\n\n    return {\n      \
+          \  result: list\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[number]
+        selected: false
+        title: 获得数组
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          variable: str
+      height: 53
+      id: '1747047687448'
+      position:
+        x: 745
+        y: 437.5056838989258
+      positionAbsolute:
+        x: 745
+        y: 437.5056838989258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({result}) {\n\n    var number = 0;\n    for (var i\
+          \ = 0 ; i < result.length ; i ++) {\n        number += result[i];\n    }\n\
+          \n    return {\n        result: number\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: number
+        selected: false
+        title: 求总和
+        type: code
+        variables:
+        - value_selector:
+          - '1747047687448'
+          - result
+          variable: result
+      height: 53
+      id: '1747048253038'
+      position:
+        x: 745
+        y: 562.0113677978516
+      positionAbsolute:
+        x: 745
+        y: 562.0113677978516
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '获得数组：<font color="blue">{{ list }}</font>
+
+
+          求总和值：<font color="green"><b>{{ result }}</font></b>'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1747047687448'
+          - result
+          variable: list
+        - value_selector:
+          - '1747048253038'
+          - result
+          variable: result
+      height: 53
+      id: '1747048761428'
+      position:
+        x: 745
+        y: 672.0113677978516
+      positionAbsolute:
+        x: 745
+        y: 672.0113677978516
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1747048761428.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 5
+        type: answer
+        variables: []
+      height: 104
+      id: '1747048868237'
+      position:
+        x: 1047.528419494629
+        y: 672.0113677978516
+      positionAbsolute:
+        x: 1047.528419494629
+        y: 672.0113677978516
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -61.5
+      y: -150.50568389892578
+      zoom: 1
