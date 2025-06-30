@@ -1,0 +1,376 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: searxng
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.5@fd6efd37c2a931911de8ab9ca3ba2da303bef146d45ee87ad896b04b36d09403
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/searxng:0.0.5@09189359ac9d5f073550169bd1e9f704ff6623a258b20596fd862d5576c0eaea
+kind: app
+version: 0.2.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1748829490876-source-1748829514050-target
+      source: '1748829490876'
+      sourceHandle: source
+      target: '1748829514050'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1748829514050-source-llm-target
+      source: '1748829514050'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1748829490876'
+      position:
+        x: -5
+        y: 282
+      positionAbsolute:
+        x: -5
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1748829514050'
+          - json
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 71065845-b2cd-4c2c-bac3-901ec4297661
+          role: system
+          text: '基于上下文的内容，生成专业回答：
+
+            {{#context#}}'
+        selected: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: llm
+      position:
+        x: 311.5
+        y: 282
+      positionAbsolute:
+        x: 311.5
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#llm.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 311.5
+        y: 423
+      positionAbsolute:
+        x: 311.5
+        y: 423
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Enter your search query
+            ja_JP: Enter your search query
+            pt_BR: Enter your search query
+            zh_Hans: 输入搜索关键词
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: Key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: general
+          form: form
+          human_description:
+            en_US: Search the web using SearXNG, a privacy-respecting metasearch engine
+            ja_JP: Search the web using SearXNG, a privacy-respecting metasearch engine
+            pt_BR: Search the web using SearXNG, a privacy-respecting metasearch engine
+            zh_Hans: 使用注重隐私的元搜索引擎 SearXNG 搜索网页
+          label:
+            en_US: search type
+            ja_JP: search type
+            pt_BR: search type
+            zh_Hans: 搜索类型
+          llm_description: ''
+          max: null
+          min: null
+          name: search_type
+          options:
+          - label:
+              en_US: General
+              ja_JP: General
+              pt_BR: General
+              zh_Hans: 综合
+            value: general
+          - label:
+              en_US: Images
+              ja_JP: Images
+              pt_BR: Images
+              zh_Hans: 图片
+            value: images
+          - label:
+              en_US: Videos
+              ja_JP: Videos
+              pt_BR: Videos
+              zh_Hans: 视频
+            value: videos
+          - label:
+              en_US: News
+              ja_JP: News
+              pt_BR: News
+              zh_Hans: 新闻
+            value: news
+          - label:
+              en_US: Map
+              ja_JP: Map
+              pt_BR: Map
+              zh_Hans: 地图
+            value: map
+          - label:
+              en_US: Music
+              ja_JP: Music
+              pt_BR: Music
+              zh_Hans: 音乐
+            value: music
+          - label:
+              en_US: It
+              ja_JP: It
+              pt_BR: It
+              zh_Hans: 信息技术
+            value: it
+          - label:
+              en_US: Science
+              ja_JP: Science
+              pt_BR: Science
+              zh_Hans: 科学
+            value: science
+          - label:
+              en_US: Files
+              ja_JP: Files
+              pt_BR: Files
+              zh_Hans: 文件
+            value: files
+          - label:
+              en_US: Social Media
+              ja_JP: Social Media
+              pt_BR: Social Media
+              zh_Hans: 社交媒体
+            value: social_media
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: corresponding to the SearXNG API's time_range parameter, also depends
+              on whether the search engine supports it
+            ja_JP: corresponding to the SearXNG API's time_range parameter, also depends
+              on whether the search engine supports it
+            pt_BR: corresponding to the SearXNG API's time_range parameter, also depends
+              on whether the search engine supports it
+            zh_Hans: 对应的是 SearXNG API 的 time_range 参数，也取决于搜索引擎是否支持
+          label:
+            en_US: time range
+            ja_JP: time range
+            pt_BR: time range
+            zh_Hans: 时间范围
+          llm_description: ''
+          max: null
+          min: null
+          name: time_range
+          options:
+          - label:
+              en_US: In a day
+              ja_JP: In a day
+              pt_BR: In a day
+              zh_Hans: 一天内
+            value: day
+          - label:
+              en_US: In a week
+              ja_JP: In a week
+              pt_BR: In a week
+              zh_Hans: 一周内
+            value: week
+          - label:
+              en_US: In a month
+              ja_JP: In a month
+              pt_BR: In a month
+              zh_Hans: 一个月内
+            value: month
+          - label:
+              en_US: In a year
+              ja_JP: In a year
+              pt_BR: In a year
+              zh_Hans: 一年内
+            value: year
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          query: ''
+          search_type: ''
+          time_range: ''
+        provider_id: langgenius/searxng/searxng
+        provider_name: langgenius/searxng/searxng
+        provider_type: builtin
+        selected: false
+        title: SearXNG 搜索
+        tool_configurations:
+          search_type: general
+          time_range: month
+        tool_description: SearXNG 是一个免费的互联网元搜索引擎，它从70多个不同的搜索服务中聚合搜索结果。
+        tool_label: SearXNG 搜索
+        tool_name: searxng_search
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 115
+      id: '1748829514050'
+      position:
+        x: -5
+        y: 423
+      positionAbsolute:
+        x: -5
+        y: 423
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 212.18096349430812
+      y: -138.76448030042252
+      zoom: 1.2005007580686597
